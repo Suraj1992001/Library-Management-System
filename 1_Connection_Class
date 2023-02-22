@@ -1,1 +1,24 @@
-
+package Library;
+import java.sql.*;
+public class Connection_Class 
+{
+	Connection c;
+	Statement st;
+	Connection_Class()
+	{
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			c = DriverManager.getConnection("jdbc:mysql://localhost:3306/Library","root","sathi");
+			st = c.createStatement();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	public static void main(String[] args) 
+	{
+		new Connection_Class();
+	}
+}
