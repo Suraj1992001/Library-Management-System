@@ -1,0 +1,49 @@
+package Library;
+import java.awt.event.*;
+import java.sql.*;
+import java.awt.*;
+import javax.swing.*;
+public class View_Librarian_Page extends JFrame
+{
+	String x[] = {"LID", "LName", "LPassword", "LEmail", "LContact", "LAddress", "LCity"};
+	String y[][] = new String[30][7];
+	JButton b;
+	JTable t;
+	int i=0, j=0;
+	public View_Librarian_Page() 
+	{
+		super("View Librarian Page");
+		setLocation(1, 1);
+		setSize(1000, 500);
+		
+		try 
+		{
+			Connection_Class c = new Connection_Class();
+			String s = "select * from add_librarian";
+			ResultSet r = c.st.executeQuery(s);
+			while (r.next()) 
+			{
+				y[i][j++] = r.getString("LID");
+				y[i][j++] = r.getString("LName");
+				y[i][j++] = r.getString("LPassword");
+				y[i][j++] = r.getString("LEmail");
+				y[i][j++] = r.getString("LContact");
+				y[i][j++] = r.getString("LAddress");
+				y[i][j++] = r.getString("LCity");
+				i++;
+				j=0;
+				t = new JTable(y, x);
+			}
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		JScrollPane s = new JScrollPane(t);
+		add(s);
+	}
+	public static void main(String[] args) 
+	{
+		new View_Librarian_Page().setVisible(true);
+	}
+}
