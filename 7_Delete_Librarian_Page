@@ -1,0 +1,93 @@
+package Library;
+import java.awt.event.*;
+import java.sql.*;
+import java.awt.*;
+import javax.swing.*;
+public class Delete_Librarian_Page extends JFrame implements ActionListener
+{
+	String x[] = {"LID", "LName", "LPassword", "LEmail", "LContact", "LAddress", "LCity"};
+	String y[][] = new String[30][7];
+	JButton b;
+	JTable t;
+	int i=0, j=0;
+	JTextField tf;
+	JPanel p;
+	JLabel l;
+	public Delete_Librarian_Page() 
+	{
+		super("Delete Librarian Page");
+		setLocation(1, 1);
+		setSize(1000, 500);
+		
+		try 
+		{
+			Connection_Class c = new Connection_Class();
+			String s = "select * from add_librarian";
+			ResultSet r = c.st.executeQuery(s);
+			while (r.next()) 
+			{
+				y[i][j++] = r.getString("LID");
+				y[i][j++] = r.getString("LName");
+				y[i][j++] = r.getString("LPassword");
+				y[i][j++] = r.getString("LEmail");
+				y[i][j++] = r.getString("LContact");
+				y[i][j++] = r.getString("LAddress");
+				y[i][j++] = r.getString("LCity");
+				i++;
+				j=0;
+				t = new JTable(y, x);
+			}
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		JScrollPane s = new JScrollPane(t);
+		
+		l = new JLabel("Delete Librarian");
+		tf = new JTextField();
+		b = new JButton("Delete");
+		b.addActionListener(this);
+		p = new JPanel();
+		p.setLayout(new GridLayout(1, 3, 10, 10));
+		p.add(l);
+		p.add(tf);
+		p.add(b);
+		setLayout(new BorderLayout(10, 10));
+		add(s, "Center");
+		add(p, "South");
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		if(e.getSource()==b)
+		{
+			int id = Integer.parseInt(tf.getText());
+			try
+			{
+				Connection_Class c = new Connection_Class();
+				String s = "delete from add_librarian where LID = '"+id+"'";
+				int i = c.st.executeUpdate(s);
+				if(i==1)
+				{
+					JOptionPane.showMessageDialog(null, "Data Is Deleted Successfully");
+					this.setVisible(false);
+					this.setVisible(true);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "ID not found");
+					this.setVisible(false);
+				}
+			}
+			catch (Exception ee) 
+			{
+				ee.printStackTrace();
+			}
+		}	
+	}
+	public static void main(String[] args) 
+	{
+		new Delete_Librarian_Page().setVisible(true);
+	}
+}
