@@ -1,0 +1,176 @@
+package Library;
+import java.awt.event.*;
+import java.sql.ResultSet;
+import java.awt.*;
+import javax.swing.*;
+public class Issue_Book_Page extends JFrame implements ActionListener
+{
+	JLabel l1,l2,l3,l4,l5,l6,l7,l8;
+	JButton b1,b2;
+	JPanel p1,p2;
+	Font f;
+	Choice c;
+	JTextField t1,t2,t3,t4,t5,t6;
+	public Issue_Book_Page() 
+	{
+		super("Issue Book Page");
+		setLocation(500, 350);
+		setSize(500, 400);
+		
+		f = new Font("Arial", Font.BOLD, 25);
+		
+		l1 = new JLabel("Librarian Section");
+		l2 = new JLabel("Book ID");
+		l3 = new JLabel("Book No");
+		l4 = new JLabel("Book Name");
+		l5 = new JLabel("Student ID");
+		l6 = new JLabel("Student Name");
+		l7 = new JLabel("Student Contact");
+		l8 = new JLabel("Book Quantity");
+		
+		l1.setFont(f);
+		l1.setHorizontalAlignment(JLabel.CENTER);
+		
+		t1 = new JTextField();
+		t2 = new JTextField();
+		t3 = new JTextField();
+		t4 = new JTextField();
+		t5 = new JTextField();
+		t6 = new JTextField();
+		
+		b1 = new JButton("Issue");
+		b2 = new JButton("Cancel");
+		
+		b1.addActionListener(this);
+		b2.addActionListener(this);
+		
+		c = new Choice();
+		try 
+		{
+			Connection_Class cc = new Connection_Class();
+			String s = "select BID from add_book";
+			ResultSet r = cc.st.executeQuery(s);
+			while(r.next())
+			{
+				c.add(r.getString("BID"));
+			}
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		p1 = new JPanel();
+		p1.setLayout(new GridLayout(8, 2, 10, 10));
+		p1.add(l2);
+		p1.add(c);
+		p1.add(l3);
+		p1.add(t1);
+		p1.add(l4);
+		p1.add(t2);
+		p1.add(l5);
+		p1.add(t3);
+		p1.add(l6);
+		p1.add(t4);
+		p1.add(l7);
+		p1.add(t5);
+		p1.add(l8);
+		p1.add(t6);
+		p1.add(b1);
+		p1.add(b2);
+		
+		p2 = new JPanel();
+		p2.setLayout(new GridLayout(1, 1, 10, 10));
+		p2.add(l1);
+		
+		setLayout(new BorderLayout(10, 10));
+		add(p1, "Center");
+		add(p2, "North");
+		
+		c.addMouseListener(new MouseAdapter()
+		{
+			public void mouseclicked(MouseEvent args)
+			{
+				try 
+				{
+					Connection_Class cc2 = new Connection_Class();
+					int id = Integer.parseInt(c.getSelectedItem());
+					String s2 = "select * from add_book where BID = '"+id+"'";
+					ResultSet rs = cc2.st.executeQuery(s2);
+					while(rs.next())
+					{
+						t1.setText(rs.getString("BNo"));
+						t2.setText(rs.getString("BName"));
+						t6.setText(rs.getString("BQuantity"));
+					}
+				} 
+				catch (Exception e) 
+				{
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		if(e.getSource()==b1)
+		{
+			int quantity = 0;
+			int id = Integer.parseInt(c.getSelectedItem());
+			String bookno = t1.getText();
+			String bookname = t2.getText();
+			int studentid = Integer.parseInt(t3.getText());
+			String studentname = t4.getText();
+			String studentcontact = t5.getText();
+			String date = new java.util.Date().toString();
+			try
+			{
+				Connection_Class ccc = new Connection_Class();
+				String s = "select BQuantity from add_book where BID = '"+id+"'";
+				ResultSet r = ccc.st.executeQuery(s);
+				while(r.next())
+				{
+					quantity = Integer.parseInt(r.getString("BQuantity"));
+					
+				}
+				if(quantity<=0)
+				{
+					JOptionPane.showMessageDialog(null, "Book is not enough to issue");
+					this.setVisible(false);
+				}
+				else
+				{
+					String s1 = "insert into issue_book(BID, BNo, BName, SID, SName, SContact, Issue_Date) values('"+id+"', '"+bookno+"', '"+bookname+"', '"+studentid+"', '"+studentname+"', '"+studentcontact+"', '"+date+"')";
+					String s2 = "update add_book set Issue_Book = Issue_Book + 1 where BID = '"+id+"'";
+					String s3 = "update add_book set BQuantity = BQuantity - 1 where BID = '"+id+"'";
+					int i1 = ccc.st.executeUpdate(s1);
+					int i2 = ccc.st.executeUpdate(s2);
+					int i3 = ccc.st.executeUpdate(s3);
+					if(i1==1 && i2==1 && i3==1)
+					{
+						JOptionPane.showMessageDialog(null, "Data is updated successfully");
+						this.setVisible(false);
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Fill the details carefully");
+					}
+				}
+			}
+			catch (Exception e1) 
+			{
+				e1.printStackTrace();
+			}
+		}
+		if(e.getSource()==b2)
+		{
+			JOptionPane.showMessageDialog(null, "Are you sure");
+			this.setVisible(false);
+		}
+	}
+	public static void main(String[] args) 
+	{
+		new Issue_Book_Page().setVisible(true);
+	}
+}
