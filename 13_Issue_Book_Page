@@ -1,6 +1,6 @@
 package Library;
 import java.awt.event.*;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.awt.*;
 import javax.swing.*;
 public class Issue_Book_Page extends JFrame implements ActionListener
