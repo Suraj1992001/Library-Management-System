@@ -1,0 +1,102 @@
+package Library;
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
+public class Return_Book_Page extends JFrame implements ActionListener 
+{
+	JLabel l1,l2,l3;
+	JButton b1,b2;
+	JPanel p1,p2;
+	JTextField t1,t2;
+	Font f;
+	public Return_Book_Page() 
+	{
+		super("Return Book Page");
+		setLocation(500, 350);
+		setSize(280, 230);
+		
+		l1 = new JLabel("Return Book");
+		l2 = new JLabel("Book No");
+		l3 = new JLabel("Student ID");
+		
+		f = new Font("Arial", Font.BOLD, 25);
+		
+		l1.setFont(f);
+		l1.setHorizontalAlignment(JLabel.CENTER);
+		
+		t1 = new JTextField();
+		t2 = new JTextField();
+		
+		b1 = new JButton("Return");
+		b2 = new JButton("Cancel");
+		
+		b1.addActionListener(this);
+		b2.addActionListener(this);
+		
+		p1 = new JPanel();
+		p1.setLayout(new GridLayout(3, 2, 10, 10));
+		p1.add(l2);
+		p1.add(t1);
+		p1.add(l3);
+		p1.add(t2);
+		p1.add(b1);
+		p1.add(b2);
+		
+		p2 = new JPanel();
+		p2.setLayout(new GridLayout(1, 1, 10, 10));
+		p2.add(l1);
+		
+		setLayout(new BorderLayout(10, 10));
+		add(p1, "Center");
+		add(p2, "North");
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		String bookno = t1.getText();
+		int studentid = Integer.parseInt(t2.getText());
+		if(e.getSource()==b1)
+		{
+			try
+			{
+				Connection_Class c = new Connection_Class();
+				String s = "delete from issue_book where BNo = '"+bookno+"' and SID = '"+studentid+"'";
+				int i = c.st.executeUpdate(s);
+				if(i==0)
+				{
+					JOptionPane.showMessageDialog(null, "Book isn't issue");
+					this.setVisible(false);
+				}
+				else
+				{
+					String q1 = "update add_book set Issue_Book = Issue_Book - 1 where BNo = '"+bookno+"'";
+					String q2 = "update add_book set BQuantity = BQuantity + 1 where BNo = '"+bookno+"'";
+					int i1 = c.st.executeUpdate(q1);
+					int i2 = c.st.executeUpdate(q2);
+					if(i1 == 1 && i2 == 1)
+					{
+						JOptionPane.showMessageDialog(null, "Book has returned successfully");
+						this.setVisible(false);
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Fill the details carefully");
+					}
+				}
+			}
+			catch(Exception ee)
+			{
+				ee.printStackTrace();
+			}
+		}
+		if(e.getSource()==b2)
+		{
+			JOptionPane.showMessageDialog(null, "Are you sure");
+			this.setVisible(false);
+		}
+	}
+	public static void main(String[] args) 
+	{
+		new Return_Book_Page().setVisible(true);
+	}
+}
