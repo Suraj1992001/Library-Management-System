@@ -1,0 +1,22 @@
+create database Library;
+use Library;
+
+create table admin_login(AName varchar(20), APassword varchar(20));
+show tables;
+insert into admin_login(AName, APassword) values ('admin1', 'admin1');
+select * from admin_login;
+
+create table add_librarian(LID int primary key not null auto_increment, LName varchar(20), LPassword varchar(20), LEmail varchar(30), LContact varchar(20), LAddress varchar(50), LCity varchar(20));
+select * from add_librarian;
+
+create table librarian_login(LName varchar(20), LPassword varchar(20));
+show tables;
+insert into librarian_login(LName, LPassword) values('librarian1', 'librarian1');
+select * from librarian_login;
+
+create table add_book(BID int primary key not null auto_increment, BNo varchar(20), BName varchar(20), AuthorName varchar(20), PublisherName varchar(20), BQuantity varchar(20), Issue_Book int default 0, Issue_Date varchar(50)); 
+select * from add_book;
+
+create table issue_book(BID varchar(20), BNo varchar(20), BName varchar(20), SID varchar(20), SName varchar(20), SContact varchar(20), Issue_Date varchar(50));
+select * from issue_book;
+
