@@ -1,0 +1,48 @@
+package Library;
+import java.awt.event.*;
+import java.sql.*;
+import java.awt.*;
+import javax.swing.*;
+public class View_Issue_Book_Page extends JFrame
+{
+	String x[] = {"BID", "BNo", "BName", "SID", "SName", "SContact", "Issue_Date"};
+	String y[][] = new String[30][7];
+	JTable t;
+	int i=0, j=0;
+	public View_Issue_Book_Page()
+	{
+		super("View Issue Book Page");
+		setLocation(1, 1);
+		setSize(1000, 500);
+		
+		try 
+		{
+			Connection_Class c = new Connection_Class();
+			String s = "select * from issue_book";
+			ResultSet r = c.st.executeQuery(s);
+			while (r.next()) 
+			{
+				y[i][j++] = r.getString("BID");
+				y[i][j++] = r.getString("BNo");
+				y[i][j++] = r.getString("BName");
+				y[i][j++] = r.getString("SID");
+				y[i][j++] = r.getString("SName");
+				y[i][j++] = r.getString("SContact");
+				y[i][j++] = r.getString("Issue_Date");
+				i++;
+				j=0;
+				t = new JTable(y, x);
+			}
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		JScrollPane s = new JScrollPane(t);
+		add(s);
+	}
+	public static void main(String[] args) 
+	{
+		new View_Issue_Book_Page().setVisible(true);
+	}
+}
