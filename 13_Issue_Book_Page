@@ -19,7 +19,7 @@ public class Issue_Book_Page extends JFrame implements ActionListener
 		
 		f = new Font("Arial", Font.BOLD, 25);
 		
-		l1 = new JLabel("Librarian Section");
+		l1 = new JLabel("Issue Book");
 		l2 = new JLabel("Book ID");
 		l3 = new JLabel("Book No");
 		l4 = new JLabel("Book Name");
