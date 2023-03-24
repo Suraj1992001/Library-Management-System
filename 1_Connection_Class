@@ -1,31 +1,27 @@
-package Library;									//A package named 'Library' is a group of similar types of classes we are used in 
-											this project.*/												
-import java.sql.*;									/*A package named 'java.sql.*' is imported so that all the classes and interfaces
-											inside the same package can be used in the current class.*/
-public class Connection_Class 								/*A class named 'Connection_Class' is used to create objects and to define object 
-											data types and method.*/
+package Library;							//A package named 'Library' is a group of similar types of classes we are used in this project.												
+import java.sql.*;	    //A package named 'java.sql.*' is imported so that all the classes and interfaces inside the same package can be used in the current class.
+public class Connection_Class					//A class named 'Connection_Class' is used to create objects and to define object data types and method.
 {
-	Connection c;									/*A variable named 'c' of Connection interface is created which helps our java 
-											program to connect with the database.*/
-	Statement st;									//Similarly, Statement interface is used to create SQL basic statements in Java.
-	Connection_Class()
+	Connection c;				//A variable named 'c' of Connection interface is created which helps our java program to connect with the database.
+	Statement st;								//Similarly, Statement interface is used to create SQL basic statements in Java.
+	public Connection_Class()						//Constructor class
 	{
-		try									//try-catch block is used to handle exceptions thrown by others.
+		try								//try-catch block is used to handle exceptions thrown by others.
 		{	
-			Class.forName("com.mysql.cj.jdbc.Driver");			//The name of the class of our SQL Driver is given. 
-			String url = "jdbc:mysql://localhost:3306/Library";		//The url of our database named 'Library' is given in the form of string.
-			String username = "root";					//Similarly the username and password.
+			Class.forName("com.mysql.cj.jdbc.Driver");		//The name of the class of our SQL Driver is given. 
+			String url = "jdbc:mysql://localhost:3306/Library";	//The url of our database named 'Library' is given in the form of string.
+			String username = "root";				//Similarly the username and password.
 			String password = "root";
-			c = DriverManager.getConnection(url, username, password);	//Calls the Driver Manager to connect the program with the database.
-			st = c.createStatement();					//Creates a Statement object for sending SQL statements to the database.
+			c = DriverManager.getConnection(url, username, password);//Calls the Driver Manager to connect the program with the database.
+			st = c.createStatement();				//Creates a Statement object for sending SQL statements to the database.
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();						//This method prints the throwable along with other details. 
+			e.printStackTrace();					//This method prints the throwable along with other details. 
 		}
 	}
-	public static void main(String[] args) 						//The main method of our class.
+	public static void main(String[] args)					//The main method of our class.
 	{
-		new Connection_Class();							//Calls the constructor. 
+		new Connection_Class();						//Calls the constructor. 
 	}
 }
