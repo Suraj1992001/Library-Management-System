@@ -1,39 +1,32 @@
-package Library;											/*A package named 'Library' is a group of similar types of 
-													classes we are used in this project.*/	
-import java.awt.event.*;										/*This package contains all the classes for creating user 
-													interface and for painting graphics and images.*/
-import java.awt.*;											/*This package provides the classes necessary to create an 
-													applet and the classes an applet uses to communicate with its 
-													applet context.*/
-import javax.swing.*;											/*This package provides a set of lightweight components that to 
-													the maximum degree possible work the same on all platform.*/
-public class Login_Page extends JFrame implements ActionListener					/*Our main class which inherits the properties of JFrame 
-													class(A top level container that provides a window on the 
-													screen) and ActionListener interface(An interface for receiving
-													action events).*/ 
+package Library;						//A package named 'Library' is a group of similar types of classes we are used in this project.	
+import java.awt.event.*;						/*This package contains all the classes for creating user interface and for painting graphics 
+									and images.*/
+import java.awt.*;							/*This package provides the classes necessary to create an applet and the classes an applet 
+									uses to communicate with its applet context.*/
+import javax.swing.*;							/*This package provides a set of lightweight components that to the maximum degree possible 
+									work the same on all platform.*/
+public class Login_Page extends JFrame implements ActionListener	/*Our main class which inherits the properties of JFrame class(A top level container that 
+									provides a window on the screen) and ActionListener interface(An interface for receiving 
+									action events).*/ 
 {
-	JLabel l1,l2;											/*Some varibles of class JLabel which is used to display a 
-													short string or an image icon.*/
-	JButton b1,b2;											/*Similarly, JButton is used to create a labeled button that 
-													has platform independent implementation.*/ 
-	JPanel p1,p2,p3;										/*Similarly, JPanel automatically makes any component added 
-													directly to the panel non-opaque.*/
-	Font f;												//Similarly, Font is used to render text in a visible way.
-	Login_Page()											//Constructor
+	JLabel l1,l2;							//Some varibles of class JLabel which is used to display a short string or an image icon.
+	JButton b1,b2;						//Similarly, JButton is used to create a labeled button that has platform independent implementation. 
+	JPanel p1,p2,p3;						//Similarly, JPanel automatically makes any component added directly to the panel non-opaque.
+	Font f;								//Similarly, Font is used to render text in a visible way.
+	Login_Page()							//Constructor
 	{
-		super("Login Page");									/*'super()' is used to access the superclass methods and to 
-													access the superclass constructor.*/
-		setLocation(500,250);									//It will set the location of the page.
-		setSize(350,200);									//It will set the size of the page.
+		super("Login Page");					//'super()' is used to access the superclass methods and to access the superclass constructor.
+		setLocation(500,250);					//It will set the location of the page.
+		setSize(350,200);					//It will set the size of the page.
 		
-		f = new Font("Arial", Font.BOLD, 23);							//It will take the font name, style and size.
+		f = new Font("Arial", Font.BOLD, 23);			//It will take the font name, style and size.
 		
-		l1 = new JLabel("Library Management");							//It will set the name of the label.
+		l1 = new JLabel("Library Management");			//It will set the name of the label.
 		
-		b1 = new JButton("Admin Login");							//It will set the name of the button.
+		b1 = new JButton("Admin Login");			//It will set the name of the button.
 		b2 = new JButton("Librarian Login");
 		
-		b1.addActionListener(this);								//It will set the action of the current button.
+		b1.addActionListener(this);				//It will set the action of the current button.
 		b2.addActionListener(this);
 		
 		ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("Library/login.png"));	//It will loads the image into a variable. 
@@ -41,12 +34,12 @@ public class Login_Page extends JFrame implements ActionListener					/*Our main 
 		ImageIcon img2 = new ImageIcon(i);
 		l2 = new JLabel(img2);	
 		
-		l1.setFont(f);										//It will set the font.
-		l1.setHorizontalAlignment(JLabel.CENTER);						//It will set the alingnment of the label.
+		l1.setFont(f);						//It will set the font.
+		l1.setHorizontalAlignment(JLabel.CENTER);		//It will set the alingnment of the label.
 		
 		p1 = new JPanel();									
-		p1.setLayout(new GridLayout(2,1,10,10));						//It will set the layout of the panel in the grid form.
-		p1.add(b1);										//It will add the items on the panel.
+		p1.setLayout(new GridLayout(2,1,10,10));		//It will set the layout of the panel in the grid form.
+		p1.add(b1);						//It will add the items on the panel.
 		p1.add(b2);
 		
 		p2 = new JPanel();
@@ -57,19 +50,18 @@ public class Login_Page extends JFrame implements ActionListener					/*Our main 
 		p3.setLayout(new GridLayout(1,1,10,10));
 		p3.add(l2);
 		
-		setLayout(new BorderLayout(10,10));							//It will set the all the panel in the border form.
-		add(p3,"West");										//It will add the position of the panels.
+		setLayout(new BorderLayout(10,10));			//It will set the all the panel in the border form.
+		add(p3,"West");						//It will add the position of the panels.
 		add(p2,"North");
 		add(p1,"East");
 	}
 	@Override
-	public void actionPerformed(ActionEvent e) 							//The method is overriden.
+	public void actionPerformed(ActionEvent e) 			//The method is overriden.
 	{
-		if(e.getSource()==b1)									//It helps to determine which button is clicked.
+		if(e.getSource()==b1)					//It helps to determine which button is clicked.
 		{
-			new Admin_Login_Page().setVisible(true);					//It makes the frame appear on the screen.
-			this.setVisible(false);								/*It will help in jump to the next page and disappear the 
-													current page.*/
+			new Admin_Login_Page().setVisible(true);	//It makes the frame appear on the screen.
+			this.setVisible(false);				//It will help in jump to the next page and disappear the current page.
 		}
 		if(e.getSource()==b2)
 		{
@@ -77,8 +69,8 @@ public class Login_Page extends JFrame implements ActionListener					/*Our main 
 			this.setVisible(false);
 		}
 	}
-	public static void main(String[] args) 								//Our main method
+	public static void main(String[] args) 				//Our main method
 	{
-		new Login_Page().setVisible(true);							//It will call the constructor to be run.
+		new Login_Page().setVisible(true);			//It will call the constructor to be run.
 	}
 }
