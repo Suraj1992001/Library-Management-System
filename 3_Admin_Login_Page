@@ -1,54 +1,48 @@
-package Library;	/*A package named 'Library' is a group of similar types of classes we are used in this project.*/
-import java.awt.event.*;	/*This package contains all the classes	for creating user interface and for painting graphics and images.*/
-import java.sql.ResultSet;	/*A ResultSet object maintains a cursor	pointing to its current row of data.*/
-import java.awt.*;	/*This package provides the classes necessary to create an applet and the classes an applet uses to communicate with its applet context.*/
-import javax.swing.*;	/*This package provides a set of lightweight components that to the maximum degree possible work the same on all platform.*/
+package Library;							//A package named 'Library' is a group of similar types of classes we are used in this project.
+import java.awt.event.*;				//This package contains all the classes	for creating user interface and for painting graphics and images.
+import java.sql.ResultSet;						//A ResultSet object maintains a cursor	pointing to its current row of data.
+import java.awt.*;	       //This package provides the classes necessary to create an applet and the classes an applet uses to communicate with its applet context.
+import javax.swing.*;			     //This package provides a set of lightweight components that to the maximum degree possible work the same on all platform.
+
 public class Admin_Login_Page extends JFrame implements ActionListener	/*Our main class which inherits the properties of JFrame class(A top level container that 
 									provides a window on the screen) and ActionListener interface(An interface for receiving action
 									events).*/ 
 {
-	JLabel l1,l2,l3;	/*Some varibles of class JLabel which is used to display a short string or an image icon.*/ 
-	JButton b1,b2;	/*JButton is used to create a labeled button that has platform independent implementation.*/ 
-	JPanel p1,p2;	/*JPanel automatically makes any component added directly to the panel non-opaque.*/
-	JTextField t;	/*JTextField is a lightweight component	that allows the editing of a single line of text.*/
+	JLabel l1,l2,l3;						//Some varibles of class JLabel which is used to display a short string or an image icon.
+	JButton b1,b2;							//JButton is used to create a labeled button that has platform independent implementation.
+	JPanel p1,p2;							//JPanel automatically makes any component added directly to the panel non-opaque.
+	JTextField t;							//JTextField is a lightweight component	that allows the editing of a single line of text.
 	JPasswordField p;	/*JPasswordField is a lightweight component that allows the editing of a single line of text where the view indicates something was 
 				typed, but does	not show the original characters.*/
-	Font f;															/*Font is used to render text in a 
-																visible way.*/
-	public Admin_Login_Page() 												//Constructor
+	Font f;								//Font is used to render text in a visible way.
+	public Admin_Login_Page()					//Constructor
 	{
-		super("Admin Login Page");											/*'super()' is used to access the 
-																superclass methods and to access the 
-																superclass constructor.*/							
-		setLocation(500, 350);												//It will set the location of the page.
-		setSize(300, 200);												//It will set the size of the page.
+		super("Admin Login Page");			//'super()' is used to access the superclass methods and to access the superclass constructor.							
+		setLocation(500, 350);					//It will set the location of the page.
+		setSize(300, 200);					//It will set the size of the page.
 		
-		f = new Font("Arial", Font.BOLD, 25);										/*It will take the font name, style and 
-																size.*/
+		f = new Font("Arial", Font.BOLD, 25);			//It will take the font name, style and size.
 		
-		l1 = new JLabel("Admin Login");											//It will set the name of the label.
+		l1 = new JLabel("Admin Login");				//It will set the name of the label.
 		l2 = new JLabel("Name");
 		l3 = new JLabel("Password");
 		
-		b1 = new JButton("Login");											//It will set the name of the button.
+		b1 = new JButton("Login");				//It will set the name of the button.
 		b2 = new JButton("Cancel");
 		
-		b1.addActionListener(this);											/*It will set the action of the current 
-																button.*/
+		b1.addActionListener(this);				//It will set the action of the current button.
 		b2.addActionListener(this);
 		
-		l1.setFont(f);													//It will set the font.
-		l1.setHorizontalAlignment(JLabel.CENTER);									//It will set the alingnment of the label.
+		l1.setFont(f);						//It will set the font.
+		l1.setHorizontalAlignment(JLabel.CENTER);		//It will set the alingnment of the label.
 		
-		t = new JTextField();												/*It will take the text entered into the 
-																field.*/
+		t = new JTextField();					//It will take the text entered into the field.
 		
-		p = new JPasswordField();											/*It will take the text entered into the 
-																field without showing the characters.*/
+		p = new JPasswordField();				//It will take the text entered into the field without showing the characters.
 		
 		p1 = new JPanel();					
-		p1.setLayout(new GridLayout(3, 2, 10, 10));									//It will add the items on the panel.
-		p1.add(l2);													//It will add the items on the panel.
+		p1.setLayout(new GridLayout(3, 2, 10, 10));		//It will add the items on the panel.
+		p1.add(l2);						
 		p1.add(t);
 		p1.add(l3);
 		p1.add(p);
@@ -59,43 +53,37 @@ public class Admin_Login_Page extends JFrame implements ActionListener	/*Our mai
 		p2.setLayout(new GridLayout(1, 1, 10, 10));
 		p2.add(l1);
 		
-		setLayout(new BorderLayout(10, 10));										/*It will set the all the panel in the 
-																border form.*/
-		add(p1, "Center");												/*It will add the position of the 
-																panels.*/
+		setLayout(new BorderLayout(10, 10));			//It will set the all the panel in the border form.
+		add(p1, "Center");					//It will add the position of the panels.
 		add(p2, "North");
 	}
-	@Override														//The method is overriden.
+	@Override							//The method is overriden.
 	public void actionPerformed(ActionEvent e) 
 	{
-		String name = t.getText();											/*It will pass the text to String.*/
+		String name = t.getText();				//It will pass the text to String.
 		String pass = p.getText();
-		if(e.getSource()==b1)												/*It helps to determine which button is
-																clicked.*/
+		if(e.getSource()==b1)					//It helps to determine which button is clicked.
 		{
-			try 													//try - catch block
+			try						//try - catch block
 			{
 				Connection_Class c = new Connection_Class();							//An object is created.
 				String s = "select * from admin_login where AName = '"+name+"' and APassword = '"+pass+"'" ;	//It will pass the SQL query to String.
-				ResultSet r = c.st.executeQuery(s);								/*It will fire the query and the 
-																details to ResultSet.*/
-				if(r.next())											//It will verify the details.
+				ResultSet r = c.st.executeQuery(s);						//It will fire the query and the details to ResultSet.
+				if(r.next())									//It will verify the details.
 				{
-					new Admin_Section_Page().setVisible(true);						//It makes the frame appear on the screen.
-					this.setVisible(false);									/*It will help in jump to the next page
-																and disappear the current page.*/
+					new Admin_Section_Page().setVisible(true);				//It makes the frame appear on the screen.
+					this.setVisible(false);					//It will help in jump to the next page	and disappear the current page.
 				}
 				else
 				{
 					JOptionPane.showMessageDialog(null, "Invalid Name or Password");			//It will show the message.
 					this.setVisible(false);
-					this.setVisible(true);									//It will help to stay at the same by 
-																the page disappear for some time.
+					this.setVisible(true);					//It will help to stay at the same by the page disappear for some time.
 				}
 			} 
 			catch (Exception e2) 
 			{
-				e2.printStackTrace();										//It will print the error message.
+				e2.printStackTrace();						//It will print the error message.
 			}
 		}
 		if(e.getSource()==b2)
@@ -103,8 +91,8 @@ public class Admin_Login_Page extends JFrame implements ActionListener	/*Our mai
 			this.setVisible(false);
 		}
 	}
-	public static void main(String[] args) 											//Our main method
+	public static void main(String[] args) 							//Our main method
 	{
-		new Admin_Login_Page().setVisible(true);									//It will call the constructor to be run.
+		new Admin_Login_Page().setVisible(true);					//It will call the constructor to be run.
 	}
 }
