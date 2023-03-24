@@ -1,43 +1,46 @@
-package Library;
-import java.awt.event.*;
-import java.awt.*;
-import javax.swing.*;
-public class Admin_Section_Page extends JFrame implements ActionListener 
+package Library;							//A package named 'Library' is a group of similar types of classes we are used in this project.
+import java.awt.event.*;				//This package contains all the classes	for creating user interface and for painting graphics and images.
+import java.awt.*;	       //This package provides the classes necessary to create an applet and the classes an applet uses to communicate with its applet context.
+import javax.swing.*;			     //This package provides a set of lightweight components that to the maximum degree possible work the same on all platform.
+
+public class Admin_Section_Page extends JFrame implements ActionListener	/*Our main class which inherits the properties of JFrame class(A top level container 
+										that provides a window on the screen) and ActionListener interface(An interface for 
+										receiving action events).*/
 {
-	JLabel l1,l2;
-	JButton b1,b2,b3,b4;
-	JPanel p1,p2,p3;
-	Font f;
-	public Admin_Section_Page() 
+	JLabel l1,l2;							     //Some varibles of class JLabel which is used to display a short string or an image icon.
+	JButton b1,b2,b3,b4;						     //JButton is used to create a labeled button that has platform independent implementation.
+	JPanel p1,p2,p3;							//JPanel automatically makes any component added directly to the panel non-opaque.
+	Font f;									//Font is used to render text in a visible way.
+	public Admin_Section_Page() 						//Constructor
 	{
-		super("Admin Section Page");
-		setLocation(500, 350);
-		setSize(300, 300);
+		super("Admin Section Page");				 //'super()' is used to access the superclass methods and to access the superclass constructor.
+		setLocation(500, 350);						//It will set the location of the page.
+		setSize(300, 300);						//It will set the size of the page.
 		
-		l1 = new JLabel("Admin Section");
+		l1 = new JLabel("Admin Section");				//It will set the name of the label.
 		
-		f = new Font("Arial", Font.BOLD, 25);
+		f = new Font("Arial", Font.BOLD, 25);				//It will take the font name, style and size.
 		
-		ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("Library/admin.png"));
-		Image i = img1.getImage().getScaledInstance(130, 120, Image.SCALE_DEFAULT);
+		ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("Library/admin.png"));			//It will loads the image into a variable.
+		Image i = img1.getImage().getScaledInstance(130, 120, Image.SCALE_DEFAULT);				//It will define the size of the image.
 		ImageIcon img2 = new ImageIcon(i);
 		l2 = new JLabel(img2);
 		
-		b1 = new JButton("Add Librarian");
+		b1 = new JButton("Add Librarian");				//It will set the name of the button.
 		b2 = new JButton("View Librarin");
 		b3 = new JButton("Delete Librarin");
 		b4 = new JButton("Logout");
 		
-		b1.addActionListener(this);
+		b1.addActionListener(this);					//It will set the action of the current button.
 		b2.addActionListener(this);
 		b3.addActionListener(this);
 		b4.addActionListener(this);
 		
-		l1.setFont(f);
-		l1.setHorizontalAlignment(JLabel.CENTER);
+		l1.setFont(f);							//It will set the font.
+		l1.setHorizontalAlignment(JLabel.CENTER);			//It will set the alingnment of the label.
 		
 		p1 = new JPanel();
-		p1.setLayout(new GridLayout(4, 1, 10, 10));
+		p1.setLayout(new GridLayout(4, 1, 10, 10));			//It will add the items on the panel.
 		p1.add(b1);
 		p1.add(b2);
 		p1.add(b3);
@@ -51,18 +54,18 @@ public class Admin_Section_Page extends JFrame implements ActionListener
 		p3.setLayout(new GridLayout(1, 1, 10, 10));
 		p3.add(l2);
 		
-		setLayout(new BorderLayout(10, 10));
-		add(p1, "East");
+		setLayout(new BorderLayout(10, 10));				//It will set the all the panel in the border form.
+		add(p1, "East");						//It will add the position of the panels.
 		add(p2, "North");
 		add(p3, "West");
 	}	
 	@Override
-	public void actionPerformed(ActionEvent e) 
+	public void actionPerformed(ActionEvent e) 				//The method is overriden.
 	{
-			if(e.getSource()==b1)
+			if(e.getSource()==b1)					//It helps to determine which button is clicked.
 			{
-				new Add_Librarian_Page().setVisible(true);
-				this.setVisible(false);
+				new Add_Librarian_Page().setVisible(true);	//It makes the frame appear on the screen.
+				this.setVisible(false);				//It will help in jump to the next page and disappear the current page.
 			}
 			if(e.getSource()==b2)
 			{
@@ -76,11 +79,11 @@ public class Admin_Section_Page extends JFrame implements ActionListener
 			}
 			if(e.getSource()==b4)
 			{
-				System.exit(0);
+				System.exit(0);					//It will help to exit from the current page.
 			}
 	}
-	public static void main(String[] args) 
+	public static void main(String[] args) 					//Our main method
 	{
-		new Admin_Section_Page().setVisible(true);
+		new Admin_Section_Page().setVisible(true);			//It will call the constructor to be run.
 	}
 }
