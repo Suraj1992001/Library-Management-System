@@ -68,49 +68,50 @@ public class Add_Librarian_Page extends JFrame implements ActionListener	/*Our m
 		p2.setLayout(new GridLayout(1, 1, 10, 10));
 		p2.add(l1);
 		
-		setLayout(new BorderLayout(10, 10));
-		add(p1, "Center");
+		setLayout(new BorderLayout(10, 10));					//It will set the all the panel in the border form.
+		add(p1, "Center");							//It will add the position of the panels.
 		add(p2, "North");
 	}
 	@Override
-	public void actionPerformed(ActionEvent e) 
+	public void actionPerformed(ActionEvent e) 				 	//The method is overriden.
 	{
-		String name = t1.getText();
+		String name = t1.getText();						//It will pass the text to String.
 		String pass = p.getText();
 		String email = t2.getText();
 		String contact = t3.getText();
 		String address = t4.getText();
 		String city = t5.getText();
-			if(e.getSource()==b1)
+		if(e.getSource()==b1)							//It helps to determine which button is clicked.
+		{
+			try								//try - catch block
 			{
-				try
+				Connection_Class c = new Connection_Class();							//An object is created.
+				String s = "insert into add_librarian(LName, LPassword, LEmail, LContact, LAddress, LCity) 	//It will pass the SQL query to String.
+				values('"+name+"', '"+pass+"', '"+email+"', '"+contact+"', '"+address+"', '"+city+"')";
+				int i = c.st.executeUpdate(s);						//It will fire the query and add the details into the database.
+				if(i==1)								//if - else statement
 				{
-					Connection_Class c = new Connection_Class();
-					String s = "insert into add_librarian(LName, LPassword, LEmail, LContact, LAddress, LCity) values('"+name+"', '"+pass+"', '"+email+"', '"+contact+"', '"+address+"', '"+city+"')";
-					int i = c.st.executeUpdate(s);
-					if(i==1)
-					{
-						JOptionPane.showMessageDialog(null, "Data Is Inserted Successfully");
-						this.setVisible(false);
-					}
-					else
-					{
-						JOptionPane.showMessageDialog(null, "Fill the data carefully");
-						this.setVisible(false);
-					}
+					JOptionPane.showMessageDialog(null, "Data Is Inserted Successfully");				//It will show the message.
+					this.setVisible(false);					//It will help in jump to the next page	and disappear the current page.
 				}
-				catch (Exception ee) 
+				else
 				{
-					ee.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Fill the data carefully");
+					this.setVisible(false);
 				}
 			}
-			if(e.getSource()==b2)
+			catch (Exception ee) 
 			{
-				this.setVisible(false);
+				ee.printStackTrace();						//It will print the error message.
 			}
+		}
+		if(e.getSource()==b2)
+		{
+			this.setVisible(false);
+		}
 	}
-	public static void main(String[] args) 
+	public static void main(String[] args) 							//Our main method
 	{
-		new Add_Librarian_Page().setVisible(true);
+		new Add_Librarian_Page().setVisible(true);					//It will call the constructor to be run.
 	}
 }
