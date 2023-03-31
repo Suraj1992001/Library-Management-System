@@ -17,10 +17,10 @@ public class Add_Librarian_Page extends JFrame implements ActionListener	/*Our m
 	public Add_Librarian_Page()					//Constructor
 	{
 		super("Add Librarian Page");				//'super()' is used to access the superclass methods and to access the superclass constructor.	
-		setLocation(500, 350);							//It will set the location of the page.
-		setSize(400, 380);							//It will set the size of the page.
+		setLocation(500, 350);					//It will set the location of the page.
+		setSize(400, 380);					//It will set the size of the page.
 		
-		l1 = new JLabel("Add Librarian");					//It will set the name of the label.
+		l1 = new JLabel("Add Librarian");			//It will set the name of the label.
 		l2 = new JLabel("Name");
 		l3 = new JLabel("Password");
 		l4 = new JLabel("Email");
@@ -28,27 +28,27 @@ public class Add_Librarian_Page extends JFrame implements ActionListener	/*Our m
 		l6 = new JLabel("Address");
 		l7 = new JLabel("City");
 		
-		f = new Font("Arial", Font.BOLD, 25);					//It will take the font name, style and size.
+		f = new Font("Arial", Font.BOLD, 25);			//It will take the font name, style and size.
 		
-		t1 = new JTextField();							//It will take the text entered into the field.
+		t1 = new JTextField();					//It will take the text entered into the field.
 		t2 = new JTextField();
 		t3 = new JTextField();
 		t4 = new JTextField();
 		t5 = new JTextField();
 		
-		p = new JPasswordField();						//It will take the text entered into the field without showing the characters.
+		p = new JPasswordField();				//It will take the text entered into the field without showing the characters.
 			
-		b1 = new JButton("Add");						//It will set the name of the button.
+		b1 = new JButton("Add");				//It will set the name of the button.
 		b2 = new JButton("Cancel");
 		
-		b1.addActionListener(this);						//It will set the action of the current button.
+		b1.addActionListener(this);				//It will set the action of the current button.
 		b2.addActionListener(this);
 		
-		l1.setFont(f);//It will set the font.
-		l1.setHorizontalAlignment(JLabel.CENTER);				//It will set the alingnment of the label.
+		l1.setFont(f);						//It will set the font.
+		l1.setHorizontalAlignment(JLabel.CENTER);		//It will set the alingnment of the label.
 		
 		p1 = new JPanel();
-		p1.setLayout(new GridLayout(7, 2, 10, 10));				//It will add the items on the panel.
+		p1.setLayout(new GridLayout(7, 2, 10, 10));		//It will add the items on the panel.
 		p1.add(l2);
 		p1.add(t1);
 		p1.add(l3);
@@ -68,22 +68,22 @@ public class Add_Librarian_Page extends JFrame implements ActionListener	/*Our m
 		p2.setLayout(new GridLayout(1, 1, 10, 10));
 		p2.add(l1);
 		
-		setLayout(new BorderLayout(10, 10));					//It will set the all the panel in the border form.
-		add(p1, "Center");							//It will add the position of the panels.
+		setLayout(new BorderLayout(10, 10));			//It will set the all the panel in the border form.
+		add(p1, "Center");					//It will add the position of the panels.
 		add(p2, "North");
 	}
 	@Override
-	public void actionPerformed(ActionEvent e) 				 	//The method is overriden.
+	public void actionPerformed(ActionEvent e) 		 	//The method is overriden.
 	{
-		String name = t1.getText();						//It will pass the text to String.
+		String name = t1.getText();				//It will pass the text to String.
 		String pass = p.getText();
 		String email = t2.getText();
 		String contact = t3.getText();
 		String address = t4.getText();
 		String city = t5.getText();
-		if(e.getSource()==b1)							//It helps to determine which button is clicked.
+		if(e.getSource()==b1)					//It helps to determine which button is clicked.
 		{
-			try								//try - catch block
+			try						//try - catch block
 			{
 				Connection_Class c = new Connection_Class();							//An object is created.
 				String s = "insert into add_librarian(LName, LPassword, LEmail, LContact, LAddress, LCity) 	//It will pass the SQL query to String.
@@ -91,7 +91,7 @@ public class Add_Librarian_Page extends JFrame implements ActionListener	/*Our m
 				int i = c.st.executeUpdate(s);						//It will fire the query and add the details into the database.
 				if(i==1)								//if - else statement
 				{
-					JOptionPane.showMessageDialog(null, "Data Is Inserted Successfully");				//It will show the message.
+					JOptionPane.showMessageDialog(null, "Data Is Inserted Successfully");			//It will show the message.
 					this.setVisible(false);					//It will help in jump to the next page	and disappear the current page.
 				}
 				else
